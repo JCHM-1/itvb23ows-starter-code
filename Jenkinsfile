@@ -5,15 +5,25 @@ pipeline {
     }
 
     environment {
-        BUILD_ID = '1'
     }
 
     stages {
         stage('Build') {
             steps {
                 sh 'php --version'
-                sh 'echo "Hello World"'
-                sh 'echo "The build ID of this job is ${BUILD_ID}"'
+                echo "Building..."
+                echo "Hello World"
+                echo "The build ID of this job is ${BUILD_ID}"
+            }
+        }
+        stage('Test') {
+            steps {
+                echo "Testing..."
+            }
+        }
+        stage('Deliver') {
+            steps {
+                echo "Delivering..."
             }
         }
     }
