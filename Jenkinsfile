@@ -4,7 +4,7 @@ pipeline {
         docker { image 'php:8.3.0-alpine3.18' } 
     }
 
-    enviroment {
+    environment {
         BUILD_ID = '1'
     }
 
