@@ -1,7 +1,7 @@
 /* Requires the Docker Pipeline plugin */
 pipeline {
     agent {
-        agent { docker { image 'php:8.3.0-alpine3.18' } }
+        { docker { image 'php:8.3.0-alpine3.18' } }
     }
     stages {
         stage('Build') {
