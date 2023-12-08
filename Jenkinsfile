@@ -1,10 +1,7 @@
-/* Requires the Docker Pipeline plugin */
+/* Requires the Docker Pipeline plugin , environment*/
 pipeline {
     agent {
         docker { image 'php:8.3.0-alpine3.18' } 
-    }
-
-    environment {
     }
 
     stages {
