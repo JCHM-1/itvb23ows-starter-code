@@ -1,4 +1,4 @@
-/* Requires the Docker Pipeline plugin */
+/* Requires the Docker Pipeline plugin nu */
 pipeline {
     agent any
     stages {
