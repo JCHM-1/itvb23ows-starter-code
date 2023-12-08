@@ -3,11 +3,17 @@ pipeline {
     agent {
         docker { image 'php:8.3.0-alpine3.18' } 
     }
+
+    enviroment {
+        BUILD_ID = '1'
+    }
+
     stages {
         stage('Build') {
             steps {
                 sh 'php --version'
                 sh 'echo "Hello World"'
+                sh 'echo "The build ID of this job is ${BUILD_ID}"'
             }
         }
     }
