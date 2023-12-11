@@ -9,7 +9,7 @@ COPY . /var/www/html
 # RUN docker-php-ext-install pdo pdo_mysql
 
 # Expose the port on which Apache will run
-EXPOSE 80
+EXPOSE 30
 
 # Start Apache when the container starts
 CMD ["apache2-foreground"]
