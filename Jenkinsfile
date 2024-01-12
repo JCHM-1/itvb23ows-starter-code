@@ -1,13 +1,12 @@
 /* Requires the Docker Pipeline plugin , environment*/
 pipeline {
     agent {
-        docker { image 'php:8.3.0-alpine3.18' } 
+        docker any
     }
 
     stages {
         stage('Build') {
             steps {
-                sh 'php --version'
                 echo "Building..."
                 echo "Hello World"
                 echo "The build ID of this job is ${BUILD_ID}"
