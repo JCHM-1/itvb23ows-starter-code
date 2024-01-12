@@ -1,6 +1,8 @@
 /* Requires the Docker Pipeline plugin , environment*/
 pipeline {
-    agent any
+    agent {
+        docker { image 'alpine3.18' } 
+    }
 
     stages {
         stage('Build') {
