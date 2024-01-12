@@ -10,11 +10,10 @@ pipeline {
                 echo "The build ID of this job is ${BUILD_ID}"
             }
         }
-        stage('Scan') {
-            steps{
-                withSonarQubeEnv(installationName: 'sonarcube_jenkins') {
-                    sh './mvnw clean org.sonarsource.scanner.maven:sonar-maven-plugin:3.10.0.2594:sonar'
-                }
+        stage('SonarQube Analysis') {
+            def scannerHome = tool 'sonarcube_jenkins';
+            withSonarQubeEnv() {
+            sh "${scannerHome}/bin/sonar-scanner"
             }
         }
         stage('Test') {
