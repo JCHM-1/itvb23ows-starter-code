@@ -10,19 +10,21 @@ pipeline {
                 echo "The build ID of this job is ${BUILD_ID}"
             }
         }
-        stage('SonarQube Analysis') {
-            steps{
-                def scannerHome = tool 'sonarcube_jenkins';
-                withSonarQubeEnv() {
-                sh "${scannerHome}/bin/sonar-scanner"
-                }
-            }
-        }
         stage('Test') {
             steps {
                 echo "Testing..."
             }
         }
+        stage('SonarQube') {
+            steps {
+                script { scannerHome = tool 'SonarQube Scanner' }
+                withSonarQubeEnv('SonarQube') {
+                sh "${scannerHome}/bin/sonar-scanner
+                -Dsonar.projectKey=[key]"
+                }
+            }   
+        }
+
         stage('Deliver') {
             steps {
                 echo "Delivering..."
