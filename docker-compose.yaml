@@ -1,12 +1,28 @@
 version: '3'
 
 services:
-  web:
+  php_app:
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3030:30"
+      - "8080:80"
     volumes:
-      - ./index.php:/var/www/html/index.php
+      - .:/var/www/html/
+    depends_on:
+      - db
       # Add any other volumes you need for your application
+  
+  db:
+    container_name: mysql_container
+    image: mysql
+    command: '--default-authentication-plugin=mysql_native_password'
+    restart: always
+    volumes:
+      - /var/lib/mysql
+    environment:
+      MYSQL_DATABASE: 'hive'
+      MYSQL_ROOT_USER: 'root'
+      MYSQL_ROOT_PASSWORD: 'Test2001'
+    ports:
+      - '9906:3306'

@@ -1,15 +1,13 @@
 # Use the official PHP image
-FROM php:7.4-apache
+FROM php:8.2-apache
 
-# Copy your PHP application files to the container
+RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+RUN apt-get update && apt-get upgrade -y
+RUN useradd -m jenkins
+USER jenkins
+
 COPY . /var/www/html
 
-# Install any additional dependencies your application might need
-# For example, if you use a database, you might need to install the corresponding PHP extension
-# RUN docker-php-ext-install pdo pdo_mysql
+EXPOSE 80
 
-# Expose the port on which Apache will run
-EXPOSE 30
-
-# Start Apache when the container starts
 CMD ["apache2-foreground"]
