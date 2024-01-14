@@ -11,6 +11,12 @@ pipeline {
 
         stage('Unit Tests') {
             steps {
+                script {
+                    docker.image('php:7.4-cli').inside {
+                    sh 'composer install' // If needed
+                    sh 'vendor/bin/phpunit'
+                        }
+                    }
                 sh 'vendor/bin/phpunit'
                 xunit([
                     thresholds: [
