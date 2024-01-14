@@ -57,3 +57,18 @@ function slide($board, $from, $to) {
     return $canSlide;
 }
 
+function isPositionValid($position, $board, $player) {
+    if (!empty($board[$position])) {
+        return false;
+    }
+
+    if (empty($board)) {
+        return $position === '0,0';
+    }
+
+    if (count($board) === 1) {
+        return hasNeighbour($position, $board);
+    }
+
+    return hasNeighbour($position, $board) && neighboursAreSameColor($player, $position, $board);
+}

@@ -1,0 +1,5 @@
+
+I	php:S1109l"/Move this closing curly brace to the next line.(ΟϊΈψÿÿÿÿ
+<	php:S2003Ό"&Replace "include" with "include_once".(λλ¦Μ
+k	php:S4833"QReplace "include_once" with namespace import mechanism through the "use" keyword.(©ª¥όÿÿÿÿ
+b	php:S4833Ό"LReplace "include" with namespace import mechanism through the "use" keyword.(λλ¦Μ

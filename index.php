@@ -1,4 +1,5 @@
 <?php
+
     session_start();
 
     include_once 'util.php';
@@ -15,10 +16,15 @@
     foreach ($GLOBALS['OFFSETS'] as $pq) {
         foreach (array_keys($board) as $pos) {
             $pq2 = explode(',', $pos);
-            $to[] = ($pq[0] + $pq2[0]).','.($pq[1] + $pq2[1]);
+            $newPos  = ($pq[0] + $pq2[0]).','.($pq[1] + $pq2[1]);
+
+            if (isPositionValid($newPos, $board, $player)) {
+                $to[] = $newPos;
+            }
         }
     }
     $to = array_unique($to);
+
     if (!count($to)) {
         $to[] = '0,0';
     }
@@ -88,13 +94,13 @@
                     if ($pq[1] < $min_q) {
                         $min_q = $pq[1];
                     }
-                foreach (array_filter($board) as $pos => $tile) {
+                }
+
+                foreach ($board as $pos => $tile) {
                     $pq = explode(',', $pos);
-                    $pq[0];
-                    $pq[1];
                     $h = count($tile);
                     echo '<div class="tile player';
-                    echo $tile[$h-1][0];
+                    echo $tile[$h - 1][0];
                     if ($h > 1) {
                         echo ' stacked';
                     }
@@ -103,9 +109,9 @@
                     echo 'em; top: ';
                     echo ($pq[1] - $min_q) * 4;
                     echo "em;\">($pq[0],$pq[1])<span>";
-                    echo $tile[$h-1][1];
+                    echo $tile[$h - 1][1];
                     echo '</span></div>';
-                } }
+                }
             ?>
         </div>
         <div class="hand">
@@ -140,7 +146,9 @@
             <select name="piece">
                 <?php
                     foreach ($hand[$player] as $tile => $ct) {
-                        echo "<option value=\"$tile\">$tile</option>";
+                        if ($ct > 0) {
+                            echo "<option value=\"$tile\">$tile</option>";
+                        }
                     }
                 ?>
             </select>
