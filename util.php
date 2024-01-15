@@ -72,14 +72,3 @@ function isPositionValid($position, $board, $player) {
 
     return hasNeighbour($position, $board) && neighboursAreSameColor($player, $position, $board);
 }
-
-function generateMoveOptions($board, $player): string
-{
-    $options = '';
-    foreach ($board as $pos => $tiles) {
-        if (!empty($tiles) && end($tiles)[0] == $player) {
-            $options .= "<option value=\"$pos\">$pos</option>";
-        }
-    }
-    return $options;
-}
