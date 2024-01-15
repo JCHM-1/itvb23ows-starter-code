@@ -13,10 +13,11 @@
     $hand = $_SESSION['hand'];
 
     $to = [];
+
     foreach ($GLOBALS['OFFSETS'] as $pq) {
         foreach (array_keys($board) as $pos) {
             $pq2 = explode(',', $pos);
-            $newPos  = ($pq[0] + $pq2[0]).','.($pq[1] + $pq2[1]);
+            $newPos = ($pq[0] + $pq2[0]).','.($pq[1] + $pq2[1]);
 
             if (isPositionValid($newPos, $board, $player)) {
                 $to[] = $newPos;
@@ -164,9 +165,7 @@
         <form method="post" action="move.php">
             <select name="from">
                 <?php
-                    foreach (array_keys($board) as $pos) {
-                        echo "<option value=\"$pos\">$pos</option>";
-                    }
+                    echo generateMoveOptions($board, $player);
                 ?>
             </select>
             <select name="to">
