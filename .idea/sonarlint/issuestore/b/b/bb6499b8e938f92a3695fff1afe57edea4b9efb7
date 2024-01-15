@@ -1,4 +1,4 @@
 
-C	php:S2003Γ"&Replace "include" with "include_once".(λλ¦Μ8…”ΣΠ1
-r	php:S4833"QReplace "include_once" with namespace import mechanism through the "use" keyword.(©ª¥όÿÿÿÿ8…”ΣΠ1
-i	php:S4833Γ"LReplace "include" with namespace import mechanism through the "use" keyword.(λλ¦Μ8…”ΣΠ1
+C	php:S2003Δ"&Replace "include" with "include_once".(λλ¦Μ8ΰ‡®Π1
+r	php:S4833"QReplace "include_once" with namespace import mechanism through the "use" keyword.(©ª¥όÿÿÿÿ8ΰ‡®Π1
+i	php:S4833Δ"LReplace "include" with namespace import mechanism through the "use" keyword.(λλ¦Μ8ΰ‡®Π1

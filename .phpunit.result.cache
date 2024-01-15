@@ -1,1 +1,1 @@
-{"version":1,"defects":{"indexTest::testIsPositionValid":7,"indexTest::testSelectMoveOptions":7},"times":{"indexTest::testThatTwoStringsAreTheSame":0.004,"indexTest::testIsPositionValid":0.005,"indexTest::testSelectMoveOptions":0.004}}
+{"version":1,"defects":{"indexTest::testIsPositionValid":7},"times":{"indexTest::testThatTwoStringsAreTheSame":0.004,"indexTest::testIsPositionValid":0.006}}
