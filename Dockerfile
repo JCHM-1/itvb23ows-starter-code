@@ -6,7 +6,7 @@ RUN apt-get update && apt-get upgrade -y
 RUN useradd -m jenkins
 USER jenkins
 
-COPY . /var/www/html
+COPY application/src /var/www/html
 
 EXPOSE 80
 
