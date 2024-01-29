@@ -20,6 +20,7 @@ if (!isset($board[$from])) {
     $_SESSION['error'] = "Queen bee is not played";
 } else {
     $tile = array_pop($board[$from]);
+
     if (!hasNeighBour($to, $board)) {
         $_SESSION['error'] = "Move would split hive";
     } else {

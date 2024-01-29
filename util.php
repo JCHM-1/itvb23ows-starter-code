@@ -35,27 +35,35 @@ function len($tile) {
     return $tile ? count($tile) : 0;
 }
 
-function slide($board, $from, $to) {
-    $canSlide = false;
-
-    if (hasNeighBour($to, $board) && isNeighbour($from, $to)) {
-        $b = explode(',', $to);
-        $common = [];
-        foreach ($GLOBALS['OFFSETS'] as $pq) {
-            $p = $b[0] + $pq[0];
-            $q = $b[1] + $pq[1];
-            if (isNeighbour($from, $p.",".$q)) {
-                $common[] = $p.",".$q;
-            }
-        }
-
-        if ($board[$common[0]] || $board[$common[1]] || $board[$from] || $board[$to]) {
-            $canSlide = min(len($board[$common[0]]), len($board[$common[1]])) <= max(len($board[$from]), len($board[$to]));
-        }
+function slide($board, $from, $to)
+{
+    if (!hasNeighbour($to, $board) || !isNeighbour($from, $to)) {
+        return false;
     }
 
-    return $canSlide;
+    $fromNeighbours = getNeighbours($from);
+    $toNeighbours = getNeighbours($to);
+
+    $commonNeighbours = array_intersect($fromNeighbours, $toNeighbours);
+    $commonNeighboursWithTile = array_filter($commonNeighbours, function ($pos) use ($board) {
+        return isset($board[$pos]);
+    });
+
+    return count($commonNeighboursWithTile) > 0;
 }
+
+
+function getNeighbours($position)
+{
+    $neighbours = [];
+    $positionParts = explode(',', $position);
+    
+    foreach ($GLOBALS['OFFSETS'] as $offset) {
+        $neighbours[] = ($positionParts[0] + $offset[0]) . ',' . ($positionParts[1] + $offset[1]);
+    }
+    return $neighbours;
+}
+
 
 function isPositionValid($position, $board, $player) {
     if (!empty($board[$position])) {

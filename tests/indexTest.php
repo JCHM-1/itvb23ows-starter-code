@@ -47,4 +47,20 @@ class indexTest extends TestCase
         $this->assertNotEquals($notExpectedOption1, (generateMoveOptions($this->board, $this->player)));
         $this->assertNotEquals($notExpectedOption2, (generateMoveOptions($this->board, $this->player)));
     }
+
+    public function testSlide()
+    {
+        require_once 'util.php';
+
+        $this->board = [
+            '0,0' => [[0, 'Q']],
+            '1,0' => [[1, 'B']],
+            '0,1' => [[0, 'A']],
+            '-1,0' => [[1, 'S']],
+        ];
+    
+        $this->assertFalse(slide($this->board, '0,0', '2,2'));
+        $this->assertTrue(slide($this->board, '0,0', '0,-1'));
+        $this->assertFalse(slide($this->board, '0,0', '1,1'));
+    }
 }
