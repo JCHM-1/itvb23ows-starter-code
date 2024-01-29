@@ -63,4 +63,13 @@ class indexTest extends TestCase
         $this->assertTrue(slide($this->board, '0,0', '0,-1'));
         $this->assertFalse(slide($this->board, '0,0', '1,1'));
     }
+
+    public function testValidateQueenBeePlaced()
+    {
+        require_once 'util.php';
+
+        $hand1 = ['Q' => 1, 'B' => 1, 'A' => 1];
+        
+        $this->assertTrue(validateQueenBeePlaced('B', [], $hand1), 'Queen Bee must be played');
+    }
 }

@@ -2,7 +2,8 @@
 
 $GLOBALS['OFFSETS'] = [[0, 1], [0, -1], [1, 0], [-1, 0], [-1, 1], [1, -1]];
 
-function isNeighbour($a, $b) {
+function isNeighbour($a, $b)
+{
     $a = explode(',', $a);
     $b = explode(',', $b);
     $isNeighbour = false;
@@ -16,13 +17,15 @@ function isNeighbour($a, $b) {
     return $isNeighbour;
 }
 
-function hasNeighbour($a, $board) {
+function hasNeighbour($a, $board)
+{
     foreach (array_keys($board) as $b) {
         if (isNeighbour($a, $b)) return true;
     }
 }
 
-function neighboursAreSameColor($player, $a, $board) {
+function neighboursAreSameColor($player, $a, $board)
+{
     foreach ($board as $b => $st) {
         if (!$st) continue;
         $c = $st[count($st) - 1][0];
@@ -31,7 +34,8 @@ function neighboursAreSameColor($player, $a, $board) {
     return true;
 }
 
-function len($tile) {
+function len($tile)
+{
     return $tile ? count($tile) : 0;
 }
 
@@ -65,7 +69,8 @@ function getNeighbours($position)
 }
 
 
-function isPositionValid($position, $board, $player) {
+function isPositionValid($position, $board, $player): bool
+{
     if (!empty($board[$position])) {
         return false;
     }
@@ -81,7 +86,12 @@ function isPositionValid($position, $board, $player) {
     return hasNeighbour($position, $board) && neighboursAreSameColor($player, $position, $board);
 }
 
-function generateMoveOptions($board, $player): string
+function validateQueenBeePlaced($piece, $board, $hand)
+{
+    return $piece != 'Q' && array_sum($hand) <= 8 && $hand['Q'];
+}
+
+function generateMoveOptions($board, $player)
 {
     $options = '';
     foreach ($board as $pos => $tiles) {
