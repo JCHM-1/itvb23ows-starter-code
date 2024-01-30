@@ -145,8 +145,36 @@ function canGrasshopperMove($from, $to, $board)
 
 function canAntMove($from, $to, $board)
 {
+    if ($from === $to) {
+        return false;
+    }
 
-    //TODO
+    if (isset($board[$to])) {
+        return false;
+    }
 
-    return null;
+    $fromCoords = array_map('intval', explode(',', $from));
+    $toCoords = array_map('intval', explode(',', $to));
+    $visited = [$from => true];
+    $queue = [];
+    array_push($queue, $fromCoords);
+
+    while (!empty($queue)) {
+        $currentCoords = array_shift($queue);
+        $currentKey = implode(',', $currentCoords);
+
+        if ($currentKey === $to) {
+            return true;
+        }
+
+        $neighbours = getNeighbours($currentKey);
+        foreach ($neighbours as $neighbour) {
+            if (!isset($board[$neighbour]) && !isset($visited[$neighbour])) {
+                array_push($queue, array_map('intval', explode(',', $neighbour)));
+                $visited[$neighbour] = true;
+            }
+        }
+    }
+
+    return false;
 }

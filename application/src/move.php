@@ -21,6 +21,11 @@ if (!isset($board[$from])) {
 } else { 
     $tile = array_pop($board[$from]);
 
+    if ($tile[1] == "A") { // 'A' staat voor Ant (soldatenmier)
+        if (!canAntMove($from, $to, $board)) {
+            $_SESSION['error'] = 'Invalid ant move';
+        }
+    }
     if ($tile[1] == "G") {
         if (!canGrasshopperMove($from, $to, $board)) {
             $_SESSION['error'] = 'Invalid grasshopper move';
