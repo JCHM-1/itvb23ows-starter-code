@@ -181,8 +181,45 @@ function canAntMove($from, $to, $board)
 
 function canSpiderMove($from, $to, $board)
 {
+    if ($from === $to) {
+        return false;
+    }
 
-    //TODO
+    if (isset($board[$to])) {
+        return false;
+    }
 
-    return null; 
+    $fromCoords = array_map('intval', explode(',', $from));
+    $visited = [$from => true];
+    $validMoves = [$fromCoords];
+
+    for ($i = 0; $i < 3; $i++) {
+        $newValidMoves = [];
+
+        foreach ($validMoves as $coords) {
+            $neighbours = getNeighbours(implode(',', $coords));
+
+            foreach ($neighbours as $neighbour) {
+                if (!isset($board[$neighbour]) && !isset($visited[$neighbour])) {
+                    $neighbourCoords = array_map('intval', explode(',', $neighbour));
+                    $newValidMoves[] = $neighbourCoords;
+                    $visited[$neighbour] = true;
+                }
+            }
+        }
+
+        $validMoves = $newValidMoves;
+
+        if (empty($validMoves)) {
+            return false;
+        }
+    }
+
+    foreach ($validMoves as $coords) {
+        if (implode(',', $coords) === $to) {
+            return true;
+        }
+    }
+
+    return false;
 }
