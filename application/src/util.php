@@ -101,3 +101,10 @@ function generateMoveOptions($board, $player)
     }
     return $options;
 }
+
+function canGrasshopperMove($from, $to, $board)
+{
+    //todo
+
+    return null;
+}
