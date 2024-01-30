@@ -178,3 +178,11 @@ function canAntMove($from, $to, $board)
 
     return false;
 }
+
+function canSpiderMove($from, $to, $board)
+{
+
+    //TODO
+
+    return null; 
+}
