@@ -104,7 +104,41 @@ function generateMoveOptions($board, $player)
 
 function canGrasshopperMove($from, $to, $board)
 {
-    //todo
+    if ($from === $to) {
+        return false;
+    }
 
-    return null;
+    if (isset($board[$to])) {
+        return false;
+    }
+
+    $fromPosition = array_map('intval', explode(',', $from));
+    $toPosition = array_map('intval', explode(',', $to));
+
+    $direction = [($toPosition[0] - $fromPosition[0]) <=> 0, ($toPosition[1] - $fromPosition[1]) <=> 0];
+
+    $xMove = $fromPosition[0] !== $toPosition[0];
+    $yMove = $fromPosition[1] !== $toPosition[1];
+    $diagonalMove = abs($fromPosition[0] - $toPosition[0]) === abs($fromPosition[1] - $toPosition[1]);
+
+    if ($xMove && $yMove && !$diagonalMove) {
+        return false;
+    }
+
+    $currentPosition = [$fromPosition[0] + $direction[0], $fromPosition[1] + $direction[1]];
+    $jumpedOverStone = false;
+
+    while (implode(',', $currentPosition) !== $to) {
+        $currentKey = implode(',', $currentPosition);
+
+        if (!isset($board[$currentKey])) {
+            return false;
+        }
+
+        $jumpedOverStone = true;
+
+        $currentPosition = [$currentPosition[0] + $direction[0], $currentPosition[1] + $direction[1]];
+    }
+
+    return $jumpedOverStone;
 }

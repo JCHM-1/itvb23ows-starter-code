@@ -24,8 +24,7 @@ class grasshopperTest extends TestCase
 
         $board = [
             '0,0' => [['0', 'G']],
-            '0,1' => [['1', 'X']],
-            '0,2' => []
+            '0,1' => [['1', 'X']]
         ];
 
         $from = '0,0';
@@ -71,8 +70,7 @@ class grasshopperTest extends TestCase
         $board = [
             '0,0' => [['0', 'G']],
             '0,1' => [['1', 'X']],
-            '1,1' => [['1', 'Y']],
-            '0,2' => []
+            '1,1' => [['1', 'Y']]
         ];
 
         $from = '0,0';

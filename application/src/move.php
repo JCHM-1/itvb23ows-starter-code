@@ -18,9 +18,14 @@ if (!isset($board[$from])) {
     $_SESSION['error'] = "Tile is not owned by player";
 } elseif ($hand['Q']) {
     $_SESSION['error'] = "Queen bee is not played";
-} else {
+} else { 
     $tile = array_pop($board[$from]);
 
+    if ($tile[1] == "G") {
+        if (!canGrasshopperMove($from, $to, $board)) {
+            $_SESSION['error'] = 'Invalid grasshopper move';
+        }
+    }
     if (!hasNeighBour($to, $board)) {
         $_SESSION['error'] = "Move would split hive";
     } else {
