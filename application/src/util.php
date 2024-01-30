@@ -142,3 +142,11 @@ function canGrasshopperMove($from, $to, $board)
 
     return $jumpedOverStone;
 }
+
+function canAntMove($from, $to, $board)
+{
+
+    //TODO
+
+    return null;
+}
