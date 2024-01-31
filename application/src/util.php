@@ -223,3 +223,8 @@ function canSpiderMove($from, $to, $board)
 
     return false;
 }
+
+function canPlayerPass($player, $board, $hand) 
+{
+    return null;
+}
