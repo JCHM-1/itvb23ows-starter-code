@@ -2,10 +2,13 @@
 
 session_start();
 
+include_once 'util.php';
+
 $db = include_once 'database.php';
-$stmt = $db->prepare('SELECT * FROM moves WHERE id = '.$_SESSION['last_move']);
-$stmt->execute();
-$result = $stmt->get_result()->fetch_array();
-$_SESSION['last_move'] = $result[5];
-setState($result[6]);
-header('Location: index.php');
+
+if (undoLastMove($db, $_SESSION)) {
+    header('Location: index.php');
+} else {
+    $_SESSION['error'] = 'No move to undo';
+    header('Location: index.php');
+}

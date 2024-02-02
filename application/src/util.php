@@ -363,3 +363,34 @@ function getQueenPositions($board)
     }
     return $positions;
 }
+
+function undoLastMove($db, &$session)
+{
+    $isBoardEmpty = empty($session['board']) || count(array_filter($session['board'], function ($stack) {
+        return !empty($stack);
+    })) === 0;
+
+    if ($isBoardEmpty) {
+        $session['error'] = 'No moves to undo.';
+        return false;
+    }
+
+    $stmt = $db->prepare('SELECT * FROM moves WHERE id = ?');
+    $stmt->bind_param('i', $session['last_move']);
+    $stmt->execute();
+    $result = $stmt->get_result()->fetch_array();
+
+    if ($result) {
+        $deleteStmt = $db->prepare('DELETE FROM moves WHERE id = ?');
+        $deleteStmt->bind_param('i', $session['last_move']);
+        $deleteStmt->execute();
+
+        $session['last_move'] = $result['previous_id'];
+        setState($result['state']);
+
+        return true;
+    } else {
+        $session['error'] = 'No previous move found.';
+        return false;
+    }
+}

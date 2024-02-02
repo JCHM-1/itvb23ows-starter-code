@@ -12,6 +12,11 @@
     $player = $_SESSION['player'];
     $hand = $_SESSION['hand'];
 
+    $isBoardEmpty = empty($board) || count(array_filter($board, function ($stack) {
+        return !empty($stack);
+    })) === 0;
+
+
     $to = [];
 
     foreach ($GLOBALS['OFFSETS'] as $pq) {
@@ -202,8 +207,10 @@
                 }
             ?>
         </ol>
-        <form method="post" action="undo.php">
-            <input type="submit" value="Undo">
-        </form>
+        <?php if (!$isBoardEmpty): ?>
+            <form method="post" action="undo.php">
+                <input type="submit" value="Undo">
+            </form>
+        <?php endif; ?>
     </body>
 </html>
