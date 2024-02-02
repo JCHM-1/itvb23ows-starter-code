@@ -310,5 +310,56 @@ function isValidMove($from, $to, $board)
 
 function checkForWin($board)
 {
+    if (empty($board)) {
+        return null;
+    }
+
+    $player0QueenSurrounded = true;
+    $player1QueenSurrounded = true;
+    $queenPositions = getQueenPositions($board);
+
+    if (!isset($queenPositions[0]) || !isset($queenPositions[1])) {
+        return null;
+    }
+
+    foreach ($queenPositions as $player => $queenPosition) {
+        $neighbours = getNeighbours($queenPosition);
+        if (!is_array($neighbours)) {
+            continue;
+        }
+        foreach ($neighbours as $neighbour) {
+            if (!isset($board[$neighbour])) {
+                if ($player == 0) {
+                    $player0QueenSurrounded = false;
+                } else {
+                    $player1QueenSurrounded = false;
+                }
+                break;
+            }
+        }
+    }
+
+    if ($player0QueenSurrounded && $player1QueenSurrounded) {
+        return 'draw';
+    } elseif ($player0QueenSurrounded) {
+        return 0;
+    } elseif ($player1QueenSurrounded) {
+        return 1;
+    }
+
     return null;
+}
+
+function getQueenPositions($board)
+{
+    $positions = [];
+    foreach ($board as $position => $pieces) {
+        if (is_array($pieces) && !empty($pieces)) {
+            $lastPiece = end($pieces);
+            if ($lastPiece[1] == 'Q') {
+                $positions[$lastPiece[0]] = $position;
+            }
+        }
+    }
+    return $positions;
 }

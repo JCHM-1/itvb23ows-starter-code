@@ -185,6 +185,10 @@
                 echo $_SESSION['error'];
                 unset($_SESSION['error']);
             }
+            if (isset($_SESSION['winner'])) {
+                echo $_SESSION['winner'];
+                unset($_SESSION['winner']);
+            }
             ?>
              </strong>
         <ol>

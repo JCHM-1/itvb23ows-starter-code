@@ -81,6 +81,20 @@ if (!isset($board[$from])) {
             $board[$to] = [$tile];
         }
         $_SESSION['player'] = 1 - $_SESSION['player'];
+
+        $winResult = checkForWin($board);
+
+        if ($winResult !== null) {
+            if ($winResult === 'draw') {
+                $_SESSION['game_status'] = 'draw';
+                $_SESSION['error'] = "The game has been drawn ";
+            } else {
+                $_SESSION['game_status'] = 'win';
+                $_SESSION['winner'] = $winResult;
+                $_SESSION['error'] = "The game has been won by player: ";
+            }
+        }
+
         $db = include_once 'database.php';
         $state = getState();
         $stmt = $db->prepare

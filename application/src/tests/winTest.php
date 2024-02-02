@@ -8,16 +8,15 @@ class winTest extends TestCase
     {
         require_once 'util.php';
 
-        // Define a board state where player 0's queen is surrounded
         $board = [
-            '0,0' => [['1', 'Q']], // Opponent's queen
+            '0,0' => [['1', 'Q']],
             '1,0' => [['0', 'A']],
             '1,-1' => [['0', 'B']],
             '0,-1' => [['0', 'S']],
             '-1,0' => [['0', 'G']],
             '-1,1' => [['0', 'A']],
             '0,1' => [['0', 'B']],
-            '1,1' => [['0', 'S']], // Not necessary, but to complete the hexagon
+            '1,1' => [['0', 'S']],
         ];
 
         $result = checkForWin($board);
@@ -27,8 +26,7 @@ class winTest extends TestCase
     public function testGameEndsInDrawWhenBothQueensAreSurroundedSimultaneously()
     {
         require_once 'util.php';
-
-        // Define a board state where both queens are surrounded simultaneously
+        
         $board = [
             '0,0' => [['0', 'Q']],
             '1,0' => [['1', 'A']],

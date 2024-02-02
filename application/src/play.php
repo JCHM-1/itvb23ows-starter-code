@@ -35,6 +35,19 @@ if (!$hand[$piece]) {
     $_SESSION['hand'][$player][$piece]--;
     $_SESSION['player'] = 1 - $_SESSION['player'];
 
+    $winResult = checkForWin($_SESSION['board']);
+
+    if ($winResult !== null) {
+        if ($winResult === 'draw') {
+            $_SESSION['game_status'] = 'draw';
+            $_SESSION['error'] = "The game has been drawn ";
+        } else {
+            $_SESSION['game_status'] = 'win';
+            $_SESSION['winner'] = $winResult;
+            $_SESSION['error'] = "The game has been won by player: ";
+        }
+    }
+
     $stmt = $db->prepare('insert into moves (game_id, type, move_from, move_to, previous_id, state)values (?, "play", ?, ?, ?, ?)');
     $stmt->bind_param('issis', $_SESSION['game_id'], $piece, $to, $_SESSION['last_move'], $state);
     $stmt->execute();
