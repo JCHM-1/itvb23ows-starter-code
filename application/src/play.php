@@ -6,6 +6,12 @@ include_once 'util.php';
 
 $db = include 'database.php';
 
+if (!isset($_POST['piece'])) {
+    $_SESSION['error'] = "No pieces left";
+    header('Location: index.php');
+    exit;
+}
+
 $piece = $_POST['piece'];
 $to = $_POST['to'];
 

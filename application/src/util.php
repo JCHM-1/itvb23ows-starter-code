@@ -19,6 +19,10 @@ function isNeighbour($a, $b)
 
 function hasNeighbour($a, $board)
 {
+    if (!is_array($board)) {
+        return false;
+    }
+    
     foreach (array_keys($board) as $b) {
         if (isNeighbour($a, $b)) return true;
     }
@@ -224,7 +228,82 @@ function canSpiderMove($from, $to, $board)
     return false;
 }
 
-function canPlayerPass($player, $board, $hand) 
+function canPlayerPass($player, $board, $hand)
 {
-    return null;
+    foreach ($hand as $piece => $count) {
+        if ($count > 0) {
+            foreach (getPlaceablePositions($player, $board) as $pos) {
+                if (isPositionValid($pos, $board, $player)) {
+                    return false;
+                }
+            }
+        }
+    }
+
+    foreach ($board as $from => $tiles) {
+        if (end($tiles)[0] == $player) {
+            foreach (getMovablePositions($from, $board) as $to) {
+                if (isValidMove($from, $to, $board)) {
+                    return false;
+                }
+            }
+        }
+    }
+
+    return true;
+}
+
+function getPlaceablePositions($player, $board)
+{
+    $placeablePositions = [];
+
+    foreach ($board as $pos => $tiles) {
+        if (end($tiles)[0] == $player) {
+            $neighbours = getNeighbours($pos);
+
+            foreach ($neighbours as $neighbour) {
+                if (!isset($board[$neighbour]) && !in_array($neighbour, $placeablePositions)) {
+                    $placeablePositions[] = $neighbour;
+                }
+            }
+        }
+    }
+
+    return $placeablePositions;
+}
+
+function getMovablePositions($from, $board)
+{
+    $movablePositions = [];
+    $neighbours = getNeighbours($from);
+
+    foreach ($neighbours as $neighbour) {
+        if (!isset($board[$neighbour])) {
+            if (isValidMove($from, $neighbour, $board)) {
+                $movablePositions[] = $neighbour;
+            }
+        }
+    }
+
+    return $movablePositions;
+}
+
+function isValidMove($from, $to, $board)
+{
+    $piece = end($board[$from]);
+
+    switch ($piece[1]) {
+        case 'Q': // Queen Bee
+            return slide($from, $to, $board);
+        case 'B': // Beetle
+            return slide($from, $to, $board);
+        case 'S': // Spider
+            return canSpiderMove($from, $to, $board);
+        case 'G': // Grasshopper
+            return canGrasshopperMove($from, $to, $board);
+        case 'A': // Ant
+            return canAntMove($from, $to, $board);
+        default:
+            return false;
+    }
 }
