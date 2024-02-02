@@ -16,13 +16,6 @@ pipeline {
                 }
             }   
         }
-        stage('Docker Compose Up') {
-            steps {
-                script {
-                    sh 'docker-compose up --build -d'
-                }
-            }
-        }
         stage('tests') {
             steps {
                 sh 'docker exec -it vendor/bin/phpunit'
