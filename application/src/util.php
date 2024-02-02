@@ -307,3 +307,8 @@ function isValidMove($from, $to, $board)
             return false;
     }
 }
+
+function checkForWin($board)
+{
+    return null;
+}
