@@ -10,10 +10,9 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - ./application/src:/var/www/html/
+      - ./application/src:/var/www/html
     depends_on:
       - db
-      # Add any other volumes you need for your application
   
   db:
     container_name: mysql_container
@@ -28,3 +27,9 @@ services:
       MYSQL_ROOT_PASSWORD: 'Test2001'
     ports:
       - '9906:3306'
+
+  ai:
+    build: ./ai/
+    container_name: hive-ai
+    ports:
+      - "3000:3000"
